@@ -18,7 +18,7 @@ This Docker container sets up an NFS server and exposes it via the Tailscale net
 ## How to Run the Docker Container
 To run the NFS-Tailscale Docker container, use the following command:
 
-`docker run -d --name nfs-tailscale --cap-add=NET_ADMIN --cap-add=SYS_MODULE --device /dev/net/tun --privileged -v /path/to/local/share:/exports -e TAILSCALE_AUTH_KEY=your_auth_key_here nfs-tailscale`
+`docker run -d --name nfs-tailscale --cap-add=NET_ADMIN --cap-add=SYS_MODULE --device /dev/net/tun --privileged -v /path/to/local/share:/exports -v /path/to/local/share:/samba_share -e HOSTNAME=smbtailscale -e TAILSCALE_AUTH_KEY=your_auth_key_here nfs-tailscale`
 
 
 Replace `/path/to/local/share` with the local path to the directory you want to share via NFS, and `your_auth_key_here` with your actual Tailscale auth key.
