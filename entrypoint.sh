@@ -1,8 +1,11 @@
 #!/bin/bash
 set -e
 
+# Set hostname default value
+HOSTNAME=${HOSTNAME:-"nfs-smb-tailscale-alpine"}
+
 # Set the container hostname
-hostname nfs-smb-tailscale-alpine
+hostname $HOSTNAME
 
 # Check if TAILSCALE_AUTH_KEY is provided
 if [[ -z "${TAILSCALE_AUTH_KEY}" ]]; then
@@ -57,7 +60,8 @@ tailscaled > /dev/null 2>&1 &
 sleep 5
 
 # Authenticate and start Tailscale
-tailscale up --authkey $TAILSCALE_AUTH_KEY
+
+tailscale up --hostname=$HOSTNAME --authkey $TAILSCALE_AUTH_KEY
 
 # Keep the container running
 tail -f /dev/null
